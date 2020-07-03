@@ -20,7 +20,7 @@ RUN set -x \
 	&& cd ${STEAMAPPDIR} \
 	&& wget https://raw.githubusercontent.com/NkosenhleDuma/CSGO/development/etc/get-csgo.sh \
     && chmod 755 ${STEAMAPPDIR}/get-csgo.sh \
-	&& wget https://raw.githubusercontent.com/NkosenhleDuma/CSGO/development89/etc/entry.sh \
+	&& wget https://raw.githubusercontent.com/NkosenhleDuma/CSGO/development/etc/entry.sh \
 	&& chmod 755 ${STEAMAPPDIR}/entry.sh \
 	&& cd ${STEAMAPPDIR}/csgo \
 	&& { \
@@ -38,6 +38,8 @@ RUN set -x \
 	&& apt-get clean autoclean \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/*
+
+RUN ls $STEAMAPPDIR/
 
 ENV SRCDS_FPSMAX=300 \
 	SRCDS_TICKRATE=128 \
@@ -60,9 +62,9 @@ WORKDIR $STEAMAPPDIR
 
 VOLUME $STEAMAPPDIR
 
-RUN ${STEAMAPPDIR}/get-csgo.sh
-
-ENTRYPOINT ${STEAMAPPDIR}/entry.sh
+RUN echo "" | /bin/sh $STEAMAPPDIR/get-csgo.sh
 
 # Expose ports
 EXPOSE 27015/tcp 27015/udp 27020/udp
+
+CMD ['/bin/sh', '$STEAMAPPDIR/entry.sh']
