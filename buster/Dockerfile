@@ -67,7 +67,7 @@ WORKDIR $STEAMAPPDIR
 VOLUME $STEAMAPPDIR
 
 RUN cat $STEAMAPPDIR/get-csgo.txt
-RUN $STEAMCMDDIR/steamcmd.sh ./get-csgo.txt +quit
+RUN $STEAMCMDDIR/steamcmd.sh ./get-csgo.txt
 #RUN cat $STEAMAPPDIR/get-csgo.sh
 #RUN /bin/sh $STEAMAPPDIR/get-csgo.sh < /dev/null
 
