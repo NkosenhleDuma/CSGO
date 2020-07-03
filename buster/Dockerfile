@@ -8,6 +8,7 @@ LABEL maintainer="personal.godsonduma@gmail.com"
 ENV STEAMAPPID 740
 ENV STEAMAPPDIR /home/steam/csgo-dedicated
 
+RUN ls
 RUN pwd
 
 # Create autoupdate config
@@ -21,6 +22,7 @@ RUN set -x \
 	&& mkdir -p ${STEAMAPPDIR}/csgo \
 	&& cd ${STEAMAPPDIR} \
 	&& wget https://raw.githubusercontent.com/NkosenhleDuma/CSGO/development/etc/get-csgo.sh \
+	&& wget https://raw.githubusercontent.com/NkosenhleDuma/CSGO/development/etc/get-csgo.txt \
     && chmod 755 ${STEAMAPPDIR}/get-csgo.sh \
 	&& wget https://raw.githubusercontent.com/NkosenhleDuma/CSGO/development/etc/entry.sh \
 	&& chmod 755 ${STEAMAPPDIR}/entry.sh \
@@ -64,7 +66,10 @@ WORKDIR $STEAMAPPDIR
 
 VOLUME $STEAMAPPDIR
 
-RUN /bin/sh $STEAMAPPDIR/get-csgo.sh
+RUN cat $STEAMAPPDIR/get-csgo.txt
+RUN $STEAMCMDDIR/steamcmd.sh ./get-csgo.txt +quit
+#RUN cat $STEAMAPPDIR/get-csgo.sh
+#RUN /bin/sh $STEAMAPPDIR/get-csgo.sh < /dev/null
 
 # Expose ports
 EXPOSE 27015/tcp 27015/udp 27020/udp
