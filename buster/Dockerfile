@@ -3,7 +3,7 @@
 ###########################################################
 FROM 982497371354.dkr.ecr.af-south-1.amazonaws.com/cm2network/steamcmd:root
 
-LABEL maintainer="personal.godsonduma@gmail.com"
+LABEL maintainer="personal.godsonduma@gmail.com "
 
 ENV STEAMAPPID 740
 ENV STEAMAPPDIR /home/steam/csgo-dedicated
