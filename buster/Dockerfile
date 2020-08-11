@@ -56,6 +56,9 @@ USER steam
 
 WORKDIR $STEAMAPPDIR
 
+RUN echo "pwd && ls -la"
+RUN pwd && ls -la
+
 VOLUME $STEAMAPPDIR
 
 ENTRYPOINT ${STEAMAPPDIR}/entry.sh
