@@ -1,7 +1,7 @@
 ###########################################################
 # Dockerfile that builds a CSGO Gameserver
 ###########################################################
-FROM cm2network/steamcmd:root
+FROM 982497371354.dkr.ecr.af-south-1.amazonaws.com/cm2network/steamcmd:root
 
 LABEL maintainer="personal.godsonduma@gmail.com"
 
@@ -18,9 +18,6 @@ RUN set -x \
 		ca-certificates=20190110 \
 	&& mkdir -p ${STEAMAPPDIR}/csgo \
 	&& cd ${STEAMAPPDIR} \
-	&& wget https://raw.githubusercontent.com/NkosenhleDuma/CSGO/development/etc/get-csgo.sh \
-	&& wget https://raw.githubusercontent.com/NkosenhleDuma/CSGO/development/etc/get-csgo.txt \
-    && chmod 755 ${STEAMAPPDIR}/get-csgo.sh \
 	&& wget https://raw.githubusercontent.com/NkosenhleDuma/CSGO/development/etc/entry.sh \
 	&& chmod 755 ${STEAMAPPDIR}/entry.sh \
 	&& cd ${STEAMAPPDIR}/csgo \
@@ -40,15 +37,13 @@ RUN set -x \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN ls $STEAMAPPDIR/
-
 ENV SRCDS_FPSMAX=300 \
 	SRCDS_TICKRATE=128 \
 	SRCDS_PORT=27015 \
 	SRCDS_TV_PORT=27020 \
 	SRCDS_CLIENT_PORT=27005 \
 	SRCDS_MAXPLAYERS=14 \
-	SRCDS_TOKEN=0 \
+	SRCDS_TOKEN="75746D037C8EC44DC1E4224C4228E970" \
 	SRCDS_RCONPW="changeme" \
 	SRCDS_PW="changeme" \
 	SRCDS_STARTMAP="de_dust2" \
@@ -63,12 +58,7 @@ WORKDIR $STEAMAPPDIR
 
 VOLUME $STEAMAPPDIR
 
-RUN cat $STEAMAPPDIR/get-csgo.txt
-RUN $STEAMCMDDIR/steamcmd.sh ./get-csgo.txt
-#RUN cat $STEAMAPPDIR/get-csgo.sh
-#RUN /bin/sh $STEAMAPPDIR/get-csgo.sh < /dev/null
+ENTRYPOINT ${STEAMAPPDIR}/entry.sh
 
 # Expose ports
 EXPOSE 27015/tcp 27015/udp 27020/udp
-
-CMD $STEAMAPPDIR/entry.sh
