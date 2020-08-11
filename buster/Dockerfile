@@ -8,9 +8,6 @@ LABEL maintainer="personal.godsonduma@gmail.com"
 ENV STEAMAPPID 740
 ENV STEAMAPPDIR /home/steam/csgo-dedicated
 
-RUN ls
-RUN pwd
-
 # Create autoupdate config
 # Add entry script & ESL config
 # Remove packages and tidy up
@@ -74,4 +71,4 @@ RUN $STEAMCMDDIR/steamcmd.sh ./get-csgo.txt
 # Expose ports
 EXPOSE 27015/tcp 27015/udp 27020/udp
 
-CMD ['/bin/sh', '$STEAMAPPDIR/entry.sh']
+CMD $STEAMAPPDIR/entry.sh
